@@ -43,6 +43,7 @@ class MaterialSegmentedControl<T> extends StatefulWidget {
     Key? key,
     required this.children,
     this.onSegmentTapped,
+    this.allowTapSameSegment,
     this.disabledChildren,
     this.selectionIndex,
     this.borderColor,
@@ -88,6 +89,8 @@ class MaterialSegmentedControl<T> extends StatefulWidget {
   ///
   /// [Colors.white] by default if null
   final TextStyle? selectedTextStyle;
+
+  final bool? allowTapSameSegment;
 
   /// Unselected text style.
   ///
@@ -303,12 +306,11 @@ class _SegmentedControlState<T> extends State<MaterialSegmentedControl<T>>
   }
 
   void _onTap(T currentKey) {
-    widget.onSegmentTapped?.call(currentKey);
-
-    //   _pressedKey = null;
-    // if (currentKey != widget.selectionIndex && currentKey == _pressedKey) {
-
-    // }
+    if (currentKey != widget.selectionIndex && currentKey == _pressedKey ||
+        (widget.allowTapSameSegment ?? false)) {
+      widget.onSegmentTapped?.call(currentKey);
+      _pressedKey = null;
+    }
   }
 
   TextStyle? getTextStyle(int index, T currentKey) {
