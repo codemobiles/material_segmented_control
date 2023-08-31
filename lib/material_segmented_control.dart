@@ -303,11 +303,12 @@ class _SegmentedControlState<T> extends State<MaterialSegmentedControl<T>>
   }
 
   void _onTap(T currentKey) {
-    if (currentKey != widget.selectionIndex && currentKey == _pressedKey) {
-      widget.onSegmentTapped?.call(currentKey);
+    widget.onSegmentTapped?.call(currentKey);
 
-      _pressedKey = null;
-    }
+    //   _pressedKey = null;
+    // if (currentKey != widget.selectionIndex && currentKey == _pressedKey) {
+
+    // }
   }
 
   TextStyle? getTextStyle(int index, T currentKey) {
